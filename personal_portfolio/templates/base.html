@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'project_index' %}">RP Portfolio</a>
+        <a class="navbar-brand" href="{% url 'project_index' %}">Hello {{ user.get_username }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -15,6 +15,12 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'blog_index' %}">Blog</a>
             </li>
+            {% if user.is_authenticated %}
+              <li class="nav-link">User: {{ user.get_username }}</li>
+              <li class="nav-link"><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+            {% else %}
+              <li class="nav-link"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+            {% endif %}
           </ul>
         </div>
     </div>
